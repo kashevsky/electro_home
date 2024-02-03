@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header{
+    height: 20vh;
+}
+.content{
+    height: 60vh;
+    padding: 0 15vw;
+    display: flex;
+}
+footer{
+    height: 20vh;
+}
+
+.header_container{
+
+}
+
+.header_row{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.category_container{
+    width: 200px;
+    margin-right: 50px;
+}
+.category_image img{
+    width: 200px;
+}
