@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use A17\Twill\Models\Behaviors\HasBlocks;
+use A17\Twill\Models\Behaviors\HasFiles;
+use A17\Twill\Models\Behaviors\HasMedias;
 use App\Models\SubCategory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use A17\Twill\Models\Model;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasBlocks, HasMedias, HasFiles;
 
     public function subCategory()
     {

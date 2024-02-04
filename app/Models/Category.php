@@ -14,4 +14,10 @@ class Category extends Model
     {
         return $this->hasMany(SubCategory::class);
     }
+
+    public function products()
+    {
+        return $this->join('sub_categories', 'categories.id', 'sub_categories.category_id')
+            ->join('products', 'sub_categories.id', 'products.sub_category_id');
+    }
 }
