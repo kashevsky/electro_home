@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Haracteristic;
 use App\Models\SubCategory;
+use App\Models\SubCategoryFilter;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -28,6 +29,11 @@ class MainSeeder extends Seeder
             'title'=>'Стиральные машины',
             'image'=>'https://www.klentrade.ru/gpic/77/0077358/1.jpg',
             'category_id' => $category->id,
+        ]);
+        SubCategoryFilter::create([
+            'parametr'=>'Бренд',
+            'sub_category_id'=>$sub_category->id,
+            'type'=>'checkbox',
         ]);
         $product = Product::create([
             'title'=>'Стирально-сушильная машина Jackys JW D8542B0BS',

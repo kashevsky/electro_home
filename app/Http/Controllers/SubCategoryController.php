@@ -14,7 +14,7 @@ class SubCategoryController extends Controller
         $categories = Category::get();
         $products = $sub_category->products;
         $product = $products->first();
-        $haracteristics = $product->haracteristics;
+        $haracteristics = $product->haracteristics->toArray();
         return view('sub_category.index', compact('products','categories','sub_category','haracteristics'));
     }
 }
