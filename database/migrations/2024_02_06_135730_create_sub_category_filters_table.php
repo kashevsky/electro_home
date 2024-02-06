@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('haracteristics', function (Blueprint $table) {
+        Schema::create('sub_category_filters', function (Blueprint $table) {
             $table->id();
             $table->string('parametr')->nullable();
-            $table->string('value')->nullable();
-            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('sub_category_id')->nullable();
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('haracteristics');
+        Schema::dropIfExists('sub_category_filters');
     }
 };
