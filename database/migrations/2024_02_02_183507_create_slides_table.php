@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('slides', function (Blueprint $table) {
             $table->id();
+            $table->string('src')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->string('alt')->nullable();
+            $table->string('title')->nullable();
+            $table->index('product_id')->nullable();
+            $table->foreign('product_id')->on('products')->references('id')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Slide;
 use A17\Twill\Models\Model;
 use App\Models\SubCategory;
 use App\Models\Haracteristic;
@@ -21,5 +22,10 @@ class Product extends Model
     public function haracteristics()
     {
         return $this->hasMany(Haracteristic::class);
+    }
+
+    public function slides()
+    {
+        return $this->hasMany(Slide::class);
     }
 }

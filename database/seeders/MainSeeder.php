@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Slide;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\Haracteristic;
 use App\Models\SubCategory;
-use App\Models\SubCategoryFilter;
+use App\Models\Haracteristic;
 use Illuminate\Database\Seeder;
+use App\Models\SubCategoryFilter;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class MainSeeder extends Seeder
@@ -34,11 +35,36 @@ class MainSeeder extends Seeder
             'parametr'=>'Бренд',
             'sub_category_id'=>$sub_category->id,
             'type'=>'checkbox',
+            'items'=> json_encode(['Lg','ATLANT','Haier','BEKO','Samsung','Bosch','Electrolux','Candy','Indesit','Weissgauff'])
+        ]);
+        SubCategoryFilter::create([
+            'parametr'=>'Стоимость',
+            'sub_category_id'=>$sub_category->id,
+            'type'=>'input',
+        ]);
+        SubCategoryFilter::create([
+            'parametr'=>'Тип',
+            'sub_category_id'=>$sub_category->id,
+            'type'=>'checkbox',
+            'items'=> json_encode(['стиральная машинка','cтиральная машинка с вертикальной загрузкой','стирально-сушильная машина','сушильная машина','сушильный шкаф'])
+        ]);
+        SubCategoryFilter::create([
+            'parametr'=>'Загрузка белья',
+            'sub_category_id'=>$sub_category->id,
+            'type'=>'checkbox',
+            'items'=> json_encode(['2-4 кг (малая)', '5 кг (уменьшенная)', '6-8 кг (средняя)', '9 кг и более (большая)'])
+        ]);
+        SubCategoryFilter::create([
+            'parametr'=>'Максимальная скорость отжима',
+            'sub_category_id'=>$sub_category->id,
+            'type'=>'checkbox',
         ]);
         $product = Product::create([
             'title'=>'Стирально-сушильная машина Jackys JW D8542B0BS',
             'image'=>'https://content2.onliner.by/catalog/device/header/a5bf6032d4b4d1fe8b8121407b511c33.jpg',
             'sub_category_id' => $sub_category->id,
+            'description'=>'Отдельностоящая, стирально-сушильная машина, сушка: естественная конденсация, с паром, загрузка до 8 кг, отжим 1400 об/мин, глубина 43 см (с люком 52 см), Aquastop',
+            'price'=> 1529
         ]);
         Haracteristic::create([
             'parametr'=>'Бренд',
@@ -65,12 +91,30 @@ class MainSeeder extends Seeder
             'value'=>'1400',
             'product_id'=>$product->id
         ]);
+        Slide::firstOrCreate([
+            'src'=>'https://content2.onliner.by/catalog/device/main@2/91676d3cc7158ecc1d2088dc070c3b6c.jpg',
+            'product_id'=>$product->id
+        ]);
+        Slide::firstOrCreate([
+            'src'=>'https://content2.onliner.by/catalog/device/main@2/a6a79802474201e20f488bfe1c5f38ed.jpg',
+            'product_id'=>$product->id
+        ]);
+        Slide::firstOrCreate([
+            'src'=>'https://content2.onliner.by/catalog/device/main@2/c24f1e692f5b6f3b4ffacd708739a21d.jpg',
+            'product_id'=>$product->id
+        ]);
+        Slide::firstOrCreate([
+            'src'=>'https://content2.onliner.by/catalog/device/main@2/41a3800bc45e62ecd7c201b6e127055d.jpg',
+            'product_id'=>$product->id
+        ]);
 
 
         $product = Product::firstOrCreate([
             'title'=>'Стиральная машина LG F2J6NNFW',
             'image'=>'https://content2.onliner.by/catalog/device/header/a3dfe83ccc229afd96e4c349169ca285.jpeg',
             'sub_category_id' => $sub_category->id,
+            'description'=>'Отдельностоящая, стиральная машинка, с паром, загрузка до 7 кг, отжим 1200 об/мин, глубина 45 см (с люком 49.5 см), энергопотребление A+++, прямой привод, 14 программ',
+            'price'=> 1350
         ]);
         Haracteristic::firstOrCreate([
             'parametr'=>'Бренд',
@@ -101,21 +145,29 @@ class MainSeeder extends Seeder
             'title'=>'Стиральная машина ATLANT СМА 40М109-00',
             'image'=>'https://content2.onliner.by/catalog/device/header/797cec79900b85e2727864490e27007b.jpeg',
             'sub_category_id' => $sub_category->id,
+            'description'=>'Отдельностоящая, стиральная машинка, загрузка до 4 кг, отжим 1000 об/мин, глубина 33.7 см (с люком 41.5 см), энергопотребление A+, 10 программ',
+            'price'=> 1820
         ]);
         $product = Product::firstOrCreate([
             'title'=>'Стирально-сушильная машина LG F2V9GC9W',
             'image'=>'https://content2.onliner.by/catalog/device/header/a80f18d662a39e8f749e4aac18c830e0.jpeg',
             'sub_category_id' => $sub_category->id,
+            'description'=>'Отдельностоящая, стирально-сушильная машина, сушка: естественная конденсация, с паром, загрузка до 8.5 кг, отжим 1200 об/мин, глубина 47.5 см (с люком 53.5 см), энергопотребление A, прямой привод, 14 программ, AI DD (LG)',
+            'price'=> 1290
         ]);
         $product = Product::firstOrCreate([
             'title'=>'Стиральная машина BEKO RSPE78612W',
             'image'=>'https://content2.onliner.by/catalog/device/header/9d37e7ae4aee32cabdfe1d83687e36f1.jpeg',
             'sub_category_id' => $sub_category->id,
+            'description'=>'Отдельностоящая, стиральная машинка, с паром, загрузка до 7 кг, отжим 1200 об/мин, глубина 45 см, энергопотребление A++, 15 программ',
+            'price'=> 1840
         ]);
         $product = Product::firstOrCreate([
             'title'=>'Стиральная машина Samsung WW70A6S23AE/LP',
             'image'=>'https://content2.onliner.by/catalog/device/header/229be448458c7402bff6a9db1911be74.jpeg',
             'sub_category_id' => $sub_category->id,
+            'description'=>'Отдельностоящая, стиральная машинка, с паром, загрузка до 7 кг, отжим 1200 об/мин, глубина 45 см (с люком 52.5 см), энергопотребление A+++, 21 программа, AI Control (Samsung)',
+            'price'=> 2100
         ]);
         $sub_category = SubCategory::firstOrCreate([
             'title'=>'Сушки',
