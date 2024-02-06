@@ -39,9 +39,15 @@ footer{
     max-height: 200px;
     position: absolute;
     overflow-y: auto;
+    background-color: white;
 }
 
 .result {
     display: flex;
     column-gap: 8px;
+}
+
+.subCategory {
+    display: flex;
+    column-gap: 12px;
 }

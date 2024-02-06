@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
@@ -13,26 +15,26 @@ class SearchController extends Controller
         $query = $request->input('query');
 
         if ($query) {
-            $results = Product::join('sub_categories', 'products.sub_category_id', 'sub_categories.id')
-                ->join('categories', 'sub_categories.category_id', 'categories.id')
-                ->where('products.title', 'like', "%{$query}%")
-                ->orWhere('sub_categories.title', 'like', "%{$query}%")
-                ->orWhere('categories.title', 'like', "%{$query}%")
-                ->select('categories.title as category_title', 'sub_categories.title as sub_category_title', 'products.title as product_title', 'products.id as product_id')
-                ->get()->map(function ($item) {
-                    $item->product = [
-                        'id' => $item->product_id,
-                        'title' => $item->product_title
-                    ];
+            $products = Product::where('products.title', 'like', "%{$query}%")->get();
 
-                    return $item;
-                });
+            $subCategories = $products->pluck('sub_category_id');
+
+            $subCategories = SubCategory::join('products', 'sub_categories.id', 'products.sub_category_id')
+                ->whereIn('sub_categories.id', $subCategories)
+                ->select(DB::raw('count(*) as total'), 'sub_categories.id', 'sub_categories.title')
+                ->groupBy('sub_categories.id')
+                ->get();
+
+            $searchResults = [
+                'products' => $products,
+                'subCategories' => $subCategories
+            ];
         } else {
-            $results = [];
+            $searchResults = [];
         }
 
         return json_encode([
-            'results' => $results
+            'searchResults' => $searchResults
         ]);
     }
 }

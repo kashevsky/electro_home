@@ -2,14 +2,14 @@
     function initSearch() {
         return {
             input: '',
-            results: null,
+            searchResults: null,
             init: function() {
                 this.$watch('input', (value) => this.searchByQuery(value));
             },
             searchByQuery: function(query) {
                 return fetch(`/searchByQuery?query=${query}`)
                     .then(response => response.json())
-                    .then(data => this.results = data.results);
+                    .then(data => this.searchResults = data.searchResults);
             }
         };
     }
@@ -25,17 +25,25 @@
         </a>
         <div x-data="initSearch()" class="search_field">
             <input x-model="input" type="text">
-            <template x-if="results && results.length">
-                <div class="results">
-                    <template x-for="result in results">
-                        <div class="result">
-                            <div class="category" x-text="result.category_title"></div>
-                            <div class="sub_category" x-text="result.sub_category_title"></div>
-                            <a :href="'/products/' + result.product.id" class="product" x-text="result.product.title"></a>
+            <div class="results">
+                <div class="subCategories">
+                    <template x-for="subCategory in searchResults.subCategories">
+                        <div class="subCategory">
+                            <div x-text="subCategory.total"></div>
+                            <a :href="'/sub_categories/' + subCategory.id" class="subCategory">
+                                <div x-text="subCategory.title"></div>
+                            </a>
                         </div>
                     </template>
                 </div>
-            </template>
+                <div class="products">
+                    <template x-for="product in searchResults.products">
+                        <a :href="'/products/' + product.id" class="product">
+                            <div x-text="product.title"></div>
+                        </a>
+                    </template>
+                </div>
+            </div>
         </div>
         <div class="phones_container">
             <div class="phones_logo">
