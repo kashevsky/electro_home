@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('haracteristics', function (Blueprint $table) {
             $table->id();
+            $table->string('parametr')->nullable();
+            $table->string('value')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
             $table->timestamps();
+
         });
     }
 
