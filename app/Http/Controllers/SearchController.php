@@ -15,7 +15,11 @@ class SearchController extends Controller
         $query = $request->input('query');
 
         if ($query) {
-            $products = Product::where('products.title', 'like', "%{$query}%")->get();
+            $products = Product::where('products.title', 'like', "%{$query}%")
+                ->join('sub_categories', 'products.sub_category_id', 'sub_categories.id')
+                ->orWhere('sub_categories.title', 'like', "%{$query}%")
+                ->select('products.*')
+                ->get();
 
             $subCategories = $products->pluck('sub_category_id');
 
@@ -23,6 +27,7 @@ class SearchController extends Controller
                 ->whereIn('sub_categories.id', $subCategories)
                 ->select(DB::raw('count(*) as total'), 'sub_categories.id', 'sub_categories.title')
                 ->groupBy('sub_categories.id')
+                ->orderBy('total', 'desc')
                 ->get();
 
             $searchResults = [

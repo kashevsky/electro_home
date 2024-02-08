@@ -20,58 +20,58 @@ class MainSeeder extends Seeder
      */
     public function run()
     {
-        $category = Category::create([
+        $category = Category::firstOrCreate([
             'title'=>'Бытовая техника',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/bt.svg',
         ]);
 
-        $sub_category = SubCategory::create([
+        $sub_category = SubCategory::firstOrCreate([
             'title'=>'Стиральные машины',
             'image'=>'https://www.klentrade.ru/gpic/77/0077358/1.jpg',
             'category_id' => $category->id,
         ]);
-        SubCategoryFilter::create([
+        SubCategoryFilter::firstOrCreate([
             'parametr'=>'Бренд',
             'sub_category_id'=>$sub_category->id,
             'type'=>'checkbox',
             'items'=> json_encode(['Lg','ATLANT','Haier','BEKO','Samsung','Bosch','Electrolux','Candy','Indesit','Weissgauff'])
         ]);
-        SubCategoryFilter::create([
+        SubCategoryFilter::firstOrCreate([
             'parametr'=>'Стоимость',
             'sub_category_id'=>$sub_category->id,
             'type'=>'input',
         ]);
-        SubCategoryFilter::create([
+        SubCategoryFilter::firstOrCreate([
             'parametr'=>'Тип',
             'sub_category_id'=>$sub_category->id,
             'type'=>'checkbox',
             'items'=> json_encode(['стиральная машинка','cтиральная машинка с вертикальной загрузкой','стирально-сушильная машина','сушильная машина','сушильный шкаф'])
         ]);
-        SubCategoryFilter::create([
+        SubCategoryFilter::firstOrCreate([
             'parametr'=>'Загрузка белья',
             'sub_category_id'=>$sub_category->id,
             'type'=>'checkbox',
             'items'=> json_encode(['2-4 кг (малая)', '5 кг (уменьшенная)', '6-8 кг (средняя)', '9 кг и более (большая)'])
         ]);
-        SubCategoryFilter::create([
+        SubCategoryFilter::firstOrCreate([
             'parametr'=>'Максимальная скорость отжима',
             'sub_category_id'=>$sub_category->id,
             'type'=>'checkbox',
         ]);
-        $product = Product::create([
+        $product = Product::firstOrCreate([
             'title'=>'Стирально-сушильная машина Jackys JW D8542B0BS',
             'image'=>'https://content2.onliner.by/catalog/device/header/a5bf6032d4b4d1fe8b8121407b511c33.jpg',
             'sub_category_id' => $sub_category->id,
             'description'=>'Отдельностоящая, стирально-сушильная машина, сушка: естественная конденсация, с паром, загрузка до 8 кг, отжим 1400 об/мин, глубина 43 см (с люком 52 см), Aquastop',
             'price'=> 1529
         ]);
-        Haracteristic::create([
+        Haracteristic::firstOrCreate([
             'parametr'=>'Бренд',
             'value'=>'Jackys',
             'product_id'=>$product->id
         ]);
-        Haracteristic::create([
+        Haracteristic::firstOrCreate([
             'parametr'=>'Стоимость',
             'value'=>'1529,00',
             'product_id'=>$product->id
@@ -234,72 +234,72 @@ class MainSeeder extends Seeder
             'image'=>'https://tehnoslon.com/upload/iblock/558/jkzhapqb04odpy7bboegbto5l9gis93d.jpg',
             'category_id' => $category->id,
         ]);
-        $sub_category = SubCategory::create([
+        $sub_category = SubCategory::firstOrCreate([
             'title'=>'Морозильники',
             'image'=>'https://tehnoslon.com/upload/iblock/558/jkzhapqb04odpy7bboegbto5l9gis93d.jpg',
             'category_id' => $category->id,
         ]);
-        $sub_category = SubCategory::create([
+        $sub_category = SubCategory::firstOrCreate([
             'title'=>'Вытяжки',
             'image'=>'https://tehnoslon.com/upload/iblock/558/jkzhapqb04odpy7bboegbto5l9gis93d.jpg',
             'category_id' => $category->id,
         ]);
-        $sub_category = SubCategory::create([
+        $sub_category = SubCategory::firstOrCreate([
             'title'=>'Посудомоечные машины',
             'image'=>'https://tehnoslon.com/upload/iblock/558/jkzhapqb04odpy7bboegbto5l9gis93d.jpg',
             'category_id' => $category->id,
         ]);
-        $category = Category::create([
+        $category = Category::firstOrCreate([
             'title'=>'Телефония',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/phone.svg',
         ]);
-        $sub_category = SubCategory::create([
+        $sub_category = SubCategory::firstOrCreate([
             'title'=>'Мобильные телефоны',
             'image'=>'https://www.klentrade.ru/gpic/77/0077358/1.jpg',
             'category_id' => $category->id,
         ]);
-        $sub_category = SubCategory::create([
+        $sub_category = SubCategory::firstOrCreate([
             'title'=>'Домашние телефоны',
             'image'=>'https://www.klentrade.ru/gpic/77/0077358/1.jpg',
             'category_id' => $category->id,
         ]);
-        $category = Category::create([
+        $category = Category::firstOrCreate([
             'title'=>'Компьютеры',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/comp.svg',
         ]);
-        $category = Category::create([
+        $category = Category::firstOrCreate([
             'title'=>'Электроника',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/ele.svg',
         ]);
-        $category = Category::create([
+        $category = Category::firstOrCreate([
             'title'=>'Автомобильная техника',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/av.svg',
         ]);
-        $category = Category::create([
+        $category = Category::firstOrCreate([
             'title'=>'Принтеры',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/print.svg',
         ]);
-        $category = Category::create([
+        $category = Category::firstOrCreate([
             'title'=>'Аксессуары',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/acc.svg',
         ]);
-        $category = Category::create([
+        $category = Category::firstOrCreate([
             'title'=>'Расходные материалы',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/rash.svg',
         ]);
-        $category = Category::create([
+        $category = Category::firstOrCreate([
             'title'=>'Телевизоры',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/telv.svg',
         ]);
-        $category = Category::create([
+        $category = Category::firstOrCreate([
             'title'=>'Прочее',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/bt.svg',

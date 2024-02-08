@@ -2,7 +2,7 @@
     function initSearch() {
         return {
             input: '',
-            searchResults: null,
+            searchResults: [],
             init: function() {
                 this.$watch('input', (value) => this.searchByQuery(value));
             },
@@ -23,23 +23,27 @@
             </div>
         </a>
         <div x-data="initSearch()" class="search_field">
-            <input x-model="input" type="text" class="input_search" placeholder="Поиск...">
+            <input x-model="input" type="search" class="input_search" placeholder="Поиск...">
             <div class="results">
-                <div class="subCategories">
-                    <template x-for="subCategory in searchResults.subCategories">
-                        <a :href="'/sub_categories/' + subCategory.id" class="subCategory">
-                            <div x-text="subCategory.total"></div>
-                            <div x-text="subCategory.title"></div>
-                        </a>
-                    </template>
-                </div>
-                <div class="products">
-                    <template x-for="product in searchResults.products">
-                        <a :href="'/products/' + product.id" class="product">
-                            <div x-text="product.title"></div>
-                        </a>
-                    </template>
-                </div>
+                <template x-if="searchResults.subCategories">
+                    <div class="subCategories">
+                        <template x-for="subCategory in searchResults.subCategories">
+                            <a :href="'/sub_categories/' + subCategory.id" class="subCategory">
+                                <div x-text="subCategory.total"></div>
+                                <div x-text="subCategory.title"></div>
+                            </a>
+                        </template>
+                    </div>
+                </template>
+                <template x-if="searchResults.products">
+                    <div class="products">
+                        <template x-for="product in searchResults.products">
+                            <a :href="'/products/' + product.id" class="product">
+                                <div x-text="product.title"></div>
+                            </a>
+                        </template>
+                    </div>
+                </template>
             </div>
         </div>
         <div class="phones_container">
