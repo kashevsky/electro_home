@@ -19,4 +19,4 @@ Route::get('sub_categories/{sub_category_id}', '\App\Http\Controllers\SubCategor
 Route::get('products/{product_id}', '\App\Http\Controllers\ProductController@show')->name('product.show');
 
 Route::get('searchByQuery', [App\Http\Controllers\SearchController::class, 'searchByQuery']);
-Route::get('filterProducts', [App\Http\Controllers\FilterController::class, 'filterProducts'])->name('filterProducts');
+Route::get('sub_categories/{sub_category_id}/searchProducts', [App\Http\Controllers\SearchController::class, 'searchProducts']);

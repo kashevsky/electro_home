@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('sub_category_filters', function (Blueprint $table) {
             //
-            $table->string('slug')->after('parametr')->nullable();
+            $table->string('name')->after('id')->nullable();
         });
     }
 
@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::table('sub_category_filters', function (Blueprint $table) {
             //
-            $table->dropColumn('slug');
+            $table->dropColumn('name');
         });
     }
 };

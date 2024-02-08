@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\SubCategoryFilter;
 use Illuminate\Http\Request;
@@ -17,17 +18,26 @@ class SubCategoryController extends Controller
         } else {
             $applied_filters = [];
         }
-        // dd($applied_filters);
+
         $sub_category = SubCategory::find($sub_category_id);
         $categories = Category::get();
         $products = $sub_category->products;
+
+        if (!empty($applied_filters)) {
+            // foreach ($applied_filters as $name => $applied_filter) {
+            //     $parametr = SubCategoryFilter::where('name', $name)->first()->parametr;
+            //     dd($products->where('products.haracteristics.parametr', $parametr)
+            //     ->whereIn('haracteristics.value', $applied_filter));
+            // }
+        }
+
         $product = $products->first();
         $filer_items = SubCategoryFilter::where('sub_category_id', $sub_category->id)->get()
             ->map(function ($item) {
                 return $item = [
                     'parametr' => $item->parametr,
                     'type' => $item->type,
-                    'slug' => $item->slug,
+                    'name' => $item->name,
                     'products' => $item->subCategory->products,
                     'items' => json_decode($item->items)
                 ];

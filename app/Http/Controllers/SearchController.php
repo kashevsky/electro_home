@@ -42,4 +42,30 @@ class SearchController extends Controller
             'searchResults' => $searchResults
         ]);
     }
+
+    public function searchProducts(Request $request, $sub_category_id)
+    {
+        $input = $request->all();
+
+        $products = Product::join('sub_categories', 'products.sub_category_id', 'sub_categories.id')
+            ->where('products.sub_category_id', $sub_category_id)
+            ->select('products.*');
+
+        if (!empty($input)) {
+            $products->whereHas('haracteristics', function ($query) use ($input) {
+                foreach ($input as $name => $filter) {
+                    $query->where(function ($query) use ($name, $filter) {
+                        $query->where('parametr', $name);
+                        foreach ($filter as $value) {
+                            $query->orWhere('value', $value);
+                        }
+                    });
+                }
+            });
+        }
+
+        return json_encode([
+            'products' => $products->get()
+        ]);
+    }
 }

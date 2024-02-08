@@ -1,20 +1,4 @@
-<script>
-    function initFilter() {
-        return {
-            filterItems: <?= json_encode($filer_items) ?>,
-            appliedFilters: <?= json_encode($applied_filters) ?>,
-            applyFilter: function(change) {
-                // console.log(change.name, change.id);
-                if (!location.href.includes('?')) {
-                    location.href = `${location.href}?${change.name}[]=${change.id}`;
-                } else {
-                    location.href = `${location.href}&${change.name}[]=${change.id}`;
-                }
-            }
-        }
-    }
-</script>
-<form x-data="initFilter()" @change="applyFilter($event.target)" x-init="console.log(filterItems)" method="get">
+<form @change="applyFilter($event.target)">
     <div class="filter_container">
         <div class="filter_title">
             Фильтр
@@ -26,7 +10,7 @@
                         <div x-text="filterItem.parametr" class="filter_name"></div>
                         <template x-for="item in filterItem.items">
                             <div class="checkbox_container">
-                                <input :id="item" type="checkbox" :checked="appliedFilters[filterItem.slug].includes(item)" :name="filterItem.slug" class="checkbox">
+                                <input :id="item" type="checkbox" :checked="isFilterApplied(filterItem.name, item)" :name="filterItem.name" class="checkbox">
                                 <div>
                                     <label x-text="item"></label>
                                 </div>
