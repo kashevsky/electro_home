@@ -10,7 +10,7 @@
                         <div x-text="filterItem.parametr" class="filter_name"></div>
                         <template x-for="item in filterItem.items">
                             <div class="checkbox_container">
-                                <input :id="item" type="checkbox" :checked="isFilterApplied(filterItem.name, item)" :name="filterItem.name" class="checkbox">
+                                <input :data-is-ranged="filterItem.is_ranged" :id="item" type="checkbox" :checked="isFilterApplied(filterItem.name, item)" :name="filterItem.name" class="checkbox">
                                 <div>
                                     <label x-text="item"></label>
                                 </div>
@@ -24,8 +24,8 @@
                         <template x-for="item in filterItem.items">
                             <div>
                                 <div class="adjacent_inputs">
-                                    <input type="text" name="from" placeholder="От">
-                                    <input type="text" name="to" placeholder="До">
+                                    <input :data-is-ranged="filterItem.is_ranged" type="text" :name="`${filterItem.name}[from]`" placeholder="От">
+                                    <input :data-is-ranged="filterItem.is_ranged" type="text" :name="`${filterItem.name}[to]`" placeholder="До">
                                 </div>
                             </div>
                         </template>

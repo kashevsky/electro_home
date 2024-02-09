@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::table('sub_category_filters', function (Blueprint $table) {
             //
             $table->string('name')->after('id')->nullable();
+            $table->boolean('is_ranged')->after('type')->default(0);
         });
     }
 
@@ -29,6 +30,7 @@ return new class extends Migration
         Schema::table('sub_category_filters', function (Blueprint $table) {
             //
             $table->dropColumn('name');
+            $table->dropColumn('is_ranged');
         });
     }
 };

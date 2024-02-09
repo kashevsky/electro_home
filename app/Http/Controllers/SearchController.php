@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\SubCategory;
+use App\Models\SubCategoryFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -52,16 +53,19 @@ class SearchController extends Controller
             ->select('products.*');
 
         if (!empty($input)) {
-            $products->whereHas('haracteristics', function ($query) use ($input) {
-                foreach ($input as $name => $filter) {
-                    $query->where(function ($query) use ($name, $filter) {
-                        $query->where('parametr', $name);
-                        foreach ($filter as $value) {
-                            $query->orWhere('value', $value);
-                        }
-                    });
-                }
-            });
+            foreach ($input as $filter_name => $filter_values) {
+                $products->whereHas('haracteristics', function ($query) use ($filter_name, $filter_values) {
+                    $parametr = SubCategoryFilter::where('name', $filter_name)->first()->parametr;
+                    $query->where('parametr', $parametr)
+                        ->where(function ($query) use ($filter_values) {
+                            foreach ($filter_values as $filter_value) {
+                                $query->orWhere('value', $filter_value);
+                            }
+                        });
+                });
+            }
+
+            $products->groupBy('products.id');
         }
 
         return json_encode([

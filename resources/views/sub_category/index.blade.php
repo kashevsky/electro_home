@@ -6,32 +6,53 @@
                 products: <?= json_encode($products) ?>,
                 filterItems: <?= json_encode($filer_items) ?>,
                 appliedFilters: <?= json_encode($applied_filters) ?>,
-                applyFilter: function(change) {
-                    if (this.appliedFilters[change.name]) {
-                        if (this.isFilterApplied(change.name, change.id)) {
-                            this.appliedFilters[change.name] = this.appliedFilters[change.name].filter((v) => v != change.id);
-                        } else {
-                            this.appliedFilters[change.name].push(change.id);
-                        }
+                applyFilter: function(filter) {
+                    var isRanged = filter.dataset.isRanged;
+                    var name = filter.name;
+                    var value;
+
+                    if (isRanged == 1) {
+                        value = filter.value;
                     } else {
-                        this.appliedFilters[change.name] = [change.id];
+                        value = filter.id;
                     }
+
+                    this.updateAppliedFilters(name, value);
 
                     const url = new URL(location);
                     const searchParams = url.searchParams;
-                    if (searchParams.has(`${change.name}[]`)) {
-                        if (searchParams.has(`${change.name}[]`, change.id)) {
-                            searchParams.delete(`${change.name}[]`, change.id);
-                        } else {
-                            searchParams.append(`${change.name}[]`, change.id);
-                        }
-                    } else {
-                        searchParams.set(`${change.name}[]`, change.id);
+
+                    if (isRanged != 1) {
+                        name = `${name}[]`;
                     }
+
+                    this.updateSearchParams(searchParams, name, value);
 
                     history.pushState({}, "", url);
 
                     this.searchProducts();
+                },
+                updateAppliedFilters: function(name, value) {
+                    if (this.appliedFilters[name]) {
+                        if (this.appliedFilters[name].includes(value)) {
+                            this.appliedFilters[name] = this.appliedFilters[name].filter((v) => v != value);
+                        } else {
+                            this.appliedFilters[name].push(value);
+                        }
+                    } else {
+                        this.appliedFilters[name] = [value];
+                    }
+                },
+                updateSearchParams: function(searchParams, name, value) {
+                    if (searchParams.has(name)) {
+                        if (searchParams.has(name, value)) {
+                            searchParams.delete(name, value);
+                        } else {
+                            searchParams.append(name, value);
+                        }
+                    } else {
+                        searchParams.set(name, value);
+                    }
                 },
                 isFilterApplied: function(name, item) {
                     return this.appliedFilters[name] && this.appliedFilters[name].includes(item);
