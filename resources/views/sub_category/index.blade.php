@@ -80,6 +80,11 @@
                         <div class="product_container">
                             <div class="product_image">
                                 <img :src="product.image">
+                                <template x-if="product.is_sale">
+                                    <div class="sale_img">
+                                        <img src="img/sale.png">
+                                    </div>
+                                </template>
                             </div>
                             <div class="product_text">
                                 <div class="product_title">

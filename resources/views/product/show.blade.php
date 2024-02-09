@@ -29,6 +29,7 @@
             </div>
             <div class="current_product_coast">
                 <span>{{$product->price}}</span> Руб
+                <strike>2100 Руб</strike>
             </div>
             <div class="current_product_actions">
                 <div class="qty">
@@ -46,18 +47,37 @@
                             +
                         </div>
                     </div>
+                    {{-- <div class="promocode">
+                        <input type="text" placeholder="Промокод">
+                    </div> --}}
                 </div>
                 <div class="current_product_buttons">
                     <div class="current_product_cart">
-                        <div>
+                        <div class="h">
                             <img src="img/cart-icon2.svg">
                         </div>
-                        <div>
+                        <div class="h">
                             В корзину
                         </div>
                     </div>
                     <div class="current_product_quick">
+                        <div class="h">
+                            <img src="img/qck.png">
+                        </div>
+                        <div class="h">
                         Быстрый заказ
+                        </div>
+                    </div>
+                </div>
+                <div class="additionally">
+                    <div class="additionally_item">
+                        Произволитель: <span>Example</span>
+                    </div>
+                    <div class="additionally_item">
+                        Импортер: <span>Example</span>
+                    </div>
+                    <div class="additionally_item">
+                        Сервисные центры: <span>Example</span>
                     </div>
                 </div>
             </div>
