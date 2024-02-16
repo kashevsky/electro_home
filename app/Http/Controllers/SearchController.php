@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\SubCategoryFilter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
@@ -58,8 +59,20 @@ class SearchController extends Controller
                     $parametr = SubCategoryFilter::where('name', $filter_name)->first()->parametr;
                     $query->where('parametr', $parametr)
                         ->where(function ($query) use ($filter_values) {
-                            foreach ($filter_values as $filter_value) {
-                                $query->orWhere('value', $filter_value);
+                            if (Arr::has($filter_values, 'from') || Arr::has($filter_values, 'to')) {
+                                $query->orWhere(function ($query) use ($filter_values) {
+                                    if (Arr::has($filter_values, 'from')) {
+                                        $query->where('value', '>=', intval(Arr::get($filter_values, 'from')));
+                                    }
+
+                                    if (Arr::has($filter_values, 'to')) {
+                                        $query->where('value', '<=', intval(Arr::get($filter_values, 'to')));
+                                    }
+                                });
+                            } else {
+                                foreach ($filter_values as $filter_value) {
+                                    $query->orWhere('value', $filter_value);
+                                }
                             }
                         });
                 });

@@ -5,43 +5,32 @@
             return {
                 products: <?= json_encode($products) ?>,
                 filterItems: <?= json_encode($filer_items) ?>,
-                appliedFilters: <?= json_encode($applied_filters) ?>,
                 applyFilter: function(filter) {
-                    var isRanged = filter.dataset.isRanged;
                     var name = filter.name;
-                    var value;
-
-                    if (isRanged == 1) {
-                        value = filter.value;
-                    } else {
-                        value = filter.id;
-                    }
-
-                    this.updateAppliedFilters(name, value);
+                    var value = filter.id;
 
                     const url = new URL(location);
                     const searchParams = url.searchParams;
 
-                    if (isRanged != 1) {
-                        name = `${name}[]`;
+                    if (value == undefined && Object.hasOwn(filter, 'from') && Object.hasOwn(filter, 'to')) {
+                        if (filter.from) {
+                            searchParams.set(`${name}[from]`, filter.from);
+                        } else {
+                            searchParams.delete(`${name}[from]`);
+                        }
+                        
+                        if (filter.to) {
+                            searchParams.set(`${name}[to]`, filter.to);
+                        } else {
+                            searchParams.delete(`${name}[to]`);
+                        }
+                    } else {
+                        this.updateSearchParams(searchParams, name, value);
                     }
-
-                    this.updateSearchParams(searchParams, name, value);
 
                     history.pushState({}, "", url);
 
                     this.searchProducts();
-                },
-                updateAppliedFilters: function(name, value) {
-                    if (this.appliedFilters[name]) {
-                        if (this.appliedFilters[name].includes(value)) {
-                            this.appliedFilters[name] = this.appliedFilters[name].filter((v) => v != value);
-                        } else {
-                            this.appliedFilters[name].push(value);
-                        }
-                    } else {
-                        this.appliedFilters[name] = [value];
-                    }
                 },
                 updateSearchParams: function(searchParams, name, value) {
                     if (searchParams.has(name)) {
@@ -54,8 +43,17 @@
                         searchParams.set(name, value);
                     }
                 },
+                getFilterValue: function(name) {
+                    const url = new URL(location);
+                    const searchParams = url.searchParams;
+
+                    return searchParams.get(name);
+                },
                 isFilterApplied: function(name, item) {
-                    return this.appliedFilters[name] && this.appliedFilters[name].includes(item);
+                    const url = new URL(location);
+                    const searchParams = url.searchParams;
+
+                    return searchParams.has(name, item);
                 },
                 searchProducts: function() {
                     fetch(`/sub_categories/{{ $sub_category->id }}/searchProducts${location.search}`)

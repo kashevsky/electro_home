@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\SubCategoryFilter;
+use Illuminate\Support\Arr;
 
 class SubCategoryController extends Controller
 {
@@ -30,8 +31,20 @@ class SubCategoryController extends Controller
                     $parametr = SubCategoryFilter::where('name', $filter_name)->first()->parametr;
                     $query->where('parametr', $parametr)
                         ->where(function ($query) use ($filter_values) {
-                            foreach ($filter_values as $filter_value) {
-                                $query->orWhere('value', $filter_value);
+                            if (Arr::has($filter_values, 'from') || Arr::has($filter_values, 'to')) {
+                                $query->orWhere(function ($query) use ($filter_values) {
+                                    if (Arr::has($filter_values, 'from')) {
+                                        $query->where('value', '>=', Arr::get($filter_values, 'from'));
+                                    }
+
+                                    if (Arr::has($filter_values, 'to')) {
+                                        $query->where('value', '<=', Arr::get($filter_values, 'to'));
+                                    }
+                                });
+                            } else {
+                                foreach ($filter_values as $filter_value) {
+                                    $query->orWhere('value', $filter_value);
+                                }
                             }
                         });
                 });
@@ -58,6 +71,6 @@ class SubCategoryController extends Controller
 
         $haracteristics = $product->haracteristics;
 
-        return view('sub_category.index', compact('products', 'categories', 'sub_category', 'filer_items', 'applied_filters'));
+        return view('sub_category.index', compact('products', 'categories', 'sub_category', 'filer_items'));
     }
 }
