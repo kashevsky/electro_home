@@ -12,6 +12,7 @@ class CreateProductsTables extends Migration
             $table->timestamp('deleted_at')->nullable();
             $table->integer('parent_id')->nullable();
             $table->boolean('published')->nullable();
+            $table->integer('is_sale')->default(0);
         });
     }
 

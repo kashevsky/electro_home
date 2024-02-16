@@ -64,7 +64,8 @@ class MainSeeder extends Seeder
             'image'=>'https://content2.onliner.by/catalog/device/header/a5bf6032d4b4d1fe8b8121407b511c33.jpg',
             'sub_category_id' => $sub_category->id,
             'description'=>'Отдельностоящая, стирально-сушильная машина, сушка: естественная конденсация, с паром, загрузка до 8 кг, отжим 1400 об/мин, глубина 43 см (с люком 52 см), Aquastop',
-            'price'=> 1529
+            'price'=> 1529,
+            'is_sale'=>1
         ]);
         Haracteristic::firstOrCreate([
             'parametr'=>'Бренд',
@@ -114,7 +115,8 @@ class MainSeeder extends Seeder
             'image'=>'https://content2.onliner.by/catalog/device/header/a3dfe83ccc229afd96e4c349169ca285.jpeg',
             'sub_category_id' => $sub_category->id,
             'description'=>'Отдельностоящая, стиральная машинка, с паром, загрузка до 7 кг, отжим 1200 об/мин, глубина 45 см (с люком 49.5 см), энергопотребление A+++, прямой привод, 14 программ',
-            'price'=> 1350
+            'price'=> 1350,
+            'is_sale'=> 1
         ]);
         Haracteristic::firstOrCreate([
             'parametr'=>'Бренд',
@@ -146,28 +148,57 @@ class MainSeeder extends Seeder
             'image'=>'https://content2.onliner.by/catalog/device/header/797cec79900b85e2727864490e27007b.jpeg',
             'sub_category_id' => $sub_category->id,
             'description'=>'Отдельностоящая, стиральная машинка, загрузка до 4 кг, отжим 1000 об/мин, глубина 33.7 см (с люком 41.5 см), энергопотребление A+, 10 программ',
-            'price'=> 1820
+            'price'=> 1820,
+            'is_sale'=>1
+        ]);
+        Haracteristic::firstOrCreate([
+            'parametr'=>'Бренд',
+            'value'=>'ATLANT',
+            'product_id'=>$product->id
+        ]);
+        Haracteristic::firstOrCreate([
+            'parametr'=>'Стоимость',
+            'value'=>'1529,00',
+            'product_id'=>$product->id
+        ]);
+        Haracteristic::firstOrCreate([
+            'parametr'=>'Тип',
+            'value'=>'Стирально-сушильная машина',
+            'product_id'=>$product->id
+        ]);
+        Haracteristic::firstOrCreate([
+            'parametr'=>'Загрузка белья',
+            'value'=>'8',
+            'product_id'=>$product->id
+        ]);
+        Haracteristic::firstOrCreate([
+            'parametr'=>'Максимальная скорость отжима',
+            'value'=>'1400',
+            'product_id'=>$product->id
         ]);
         $product = Product::firstOrCreate([
             'title'=>'Стирально-сушильная машина LG F2V9GC9W',
             'image'=>'https://content2.onliner.by/catalog/device/header/a80f18d662a39e8f749e4aac18c830e0.jpeg',
             'sub_category_id' => $sub_category->id,
             'description'=>'Отдельностоящая, стирально-сушильная машина, сушка: естественная конденсация, с паром, загрузка до 8.5 кг, отжим 1200 об/мин, глубина 47.5 см (с люком 53.5 см), энергопотребление A, прямой привод, 14 программ, AI DD (LG)',
-            'price'=> 1290
+            'price'=> 1290,
+            'is_sale'=>1
         ]);
         $product = Product::firstOrCreate([
             'title'=>'Стиральная машина BEKO RSPE78612W',
             'image'=>'https://content2.onliner.by/catalog/device/header/9d37e7ae4aee32cabdfe1d83687e36f1.jpeg',
             'sub_category_id' => $sub_category->id,
             'description'=>'Отдельностоящая, стиральная машинка, с паром, загрузка до 7 кг, отжим 1200 об/мин, глубина 45 см, энергопотребление A++, 15 программ',
-            'price'=> 1840
+            'price'=> 1840,
+            'is_sale'=>1
         ]);
         $product = Product::firstOrCreate([
             'title'=>'Стиральная машина Samsung WW70A6S23AE/LP',
             'image'=>'https://content2.onliner.by/catalog/device/header/229be448458c7402bff6a9db1911be74.jpeg',
             'sub_category_id' => $sub_category->id,
             'description'=>'Отдельностоящая, стиральная машинка, с паром, загрузка до 7 кг, отжим 1200 об/мин, глубина 45 см (с люком 52.5 см), энергопотребление A+++, 21 программа, AI Control (Samsung)',
-            'price'=> 2100
+            'price'=> 2100,
+            'is_sale'=>1
         ]);
         $sub_category = SubCategory::firstOrCreate([
             'title'=>'Сушки',
@@ -302,7 +333,7 @@ class MainSeeder extends Seeder
         $category = Category::firstOrCreate([
             'title'=>'Прочее',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
-            'logo'=>'img/bt.svg',
+            'logo'=>'img/all.png',
         ]);
 
     }
