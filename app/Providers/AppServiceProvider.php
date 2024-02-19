@@ -26,8 +26,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        TwillNavigation::addLink(
-            NavigationLink::make()->forModule('products')->title('Продукты')
-        );
+
     }
 }

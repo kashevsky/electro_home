@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Twill;
 
-use A17\Twill\Models\Contracts\TwillModelContract;
+use A17\Twill\Services\Forms\Form;
+use A17\Twill\Services\Forms\Fields\Input;
+use A17\Twill\Services\Forms\Fields\Medias;
 use A17\Twill\Services\Listings\Columns\Text;
 use A17\Twill\Services\Listings\TableColumns;
-use A17\Twill\Services\Forms\Fields\Input;
-use A17\Twill\Services\Forms\Form;
+use A17\Twill\Models\Contracts\TwillModelContract;
 use A17\Twill\Http\Controllers\Admin\ModuleController as BaseModuleController;
+use A17\Twill\Services\Forms\BladePartial;
 
 class ProductController extends BaseModuleController
 {
@@ -18,6 +20,7 @@ class ProductController extends BaseModuleController
     protected function setUpController(): void
     {
         $this->disablePermalink();
+        $this->enableReorder();
     }
 
     protected $viewPrefix = 'products';
@@ -33,6 +36,12 @@ class ProductController extends BaseModuleController
         $form->add(
             Input::make()->name('description')->label('Description')->translatable()
         );
+        $form->add(
+
+            // BladePartial::make()->name('')
+            Medias::make()->name('image')->label('Изображение'),
+        );
+
 
         return $form;
     }

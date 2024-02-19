@@ -3,17 +3,21 @@
 namespace App\Models;
 
 use App\Models\Slide;
-use A17\Twill\Models\Model;
 use App\Models\SubCategory;
 use App\Models\Haracteristic;
-use A17\Twill\Models\Behaviors\HasFiles;
-use A17\Twill\Models\Behaviors\HasBlocks;
-use A17\Twill\Models\Behaviors\HasMedias;
+use Illuminate\Database\Eloquent\Model;
+
 
 class Product extends Model
 {
-    use HasBlocks, HasMedias, HasFiles;
 
+    protected $fillable = [
+        'published',
+        'title',
+        'position',
+        'image',
+        'price'
+    ];
     public function subCategory()
     {
         return $this->belongsTo(SubCategory::class);

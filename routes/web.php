@@ -20,3 +20,10 @@ Route::get('products/{product_id}', '\App\Http\Controllers\ProductController@sho
 
 Route::get('searchByQuery', [App\Http\Controllers\SearchController::class, 'searchByQuery']);
 Route::get('sub_categories/{sub_category_id}/searchProducts', [App\Http\Controllers\SearchController::class, 'searchProducts']);
+
+Route::get('admin/promocodes','\App\Http\Controllers\PromocodeController@index');
+
+Route::post('basket/add', '\App\Http\Controllers\BasketController@add')->name('basket.add');
+
+
+Route::get('basket/test', '\App\Http\Controllers\BasketController@test')->name('basket.test');

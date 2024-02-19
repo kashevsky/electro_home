@@ -33,6 +33,7 @@ class MainSeeder extends Seeder
         ]);
         SubCategoryFilter::firstOrCreate([
             'parametr'=>'Бренд',
+            'name'=>'brands',
             'sub_category_id'=>$sub_category->id,
             'type'=>'checkbox',
             'items'=> json_encode(['Lg','ATLANT','Haier','BEKO','Samsung','Bosch','Electrolux','Candy','Indesit','Weissgauff'])
@@ -46,6 +47,7 @@ class MainSeeder extends Seeder
             'parametr'=>'Тип',
             'sub_category_id'=>$sub_category->id,
             'type'=>'checkbox',
+            'name'=>'type',
             'items'=> json_encode(['стиральная машинка','cтиральная машинка с вертикальной загрузкой','стирально-сушильная машина','сушильная машина','сушильный шкаф'])
         ]);
         SubCategoryFilter::firstOrCreate([
@@ -90,6 +92,36 @@ class MainSeeder extends Seeder
         Haracteristic::firstOrCreate([
             'parametr'=>'Максимальная скорость отжима',
             'value'=>'1400',
+            'product_id'=>$product->id
+        ]);
+        Haracteristic::firstOrCreate([
+            'parametr'=>'Метод сушки',
+            'value'=>'естественная конденсация',
+            'product_id'=>$product->id
+        ]);
+        Haracteristic::firstOrCreate([
+            'parametr'=>'Цвет люка ',
+            'value'=>'хром, серебристый',
+            'product_id'=>$product->id
+        ]);
+        Haracteristic::firstOrCreate([
+            'parametr'=>'Класс стирки',
+            'value'=>'A',
+            'product_id'=>$product->id
+        ]);
+        Haracteristic::firstOrCreate([
+            'parametr'=>'Класс отжима ',
+            'value'=>'B',
+            'product_id'=>$product->id
+        ]);
+        Haracteristic::firstOrCreate([
+            'parametr'=>'Класс сушки ',
+            'value'=>'A',
+            'product_id'=>$product->id
+        ]);
+        Haracteristic::firstOrCreate([
+            'parametr'=>'Объём барабана',
+            'value'=>'54 л',
             'product_id'=>$product->id
         ]);
         Slide::firstOrCreate([
@@ -300,40 +332,155 @@ class MainSeeder extends Seeder
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/comp.svg',
         ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Стационарные',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Ноутбуки',
+            'image'=>'https://avatars.mds.yandex.net/i?id=67c845370df971f3f18a2ba2c7f03b15-2466270-images-thumbs&n=13',
+            'category_id' => $category->id,
+        ]);
         $category = Category::firstOrCreate([
             'title'=>'Электроника',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/ele.svg',
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест1',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест2',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест3',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест4',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
         ]);
         $category = Category::firstOrCreate([
             'title'=>'Автомобильная техника',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/av.svg',
         ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест1',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест2',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест3',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест4',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест5',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
         $category = Category::firstOrCreate([
             'title'=>'Принтеры',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/print.svg',
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест1',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест2',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест3',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест4',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест5',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
         ]);
         $category = Category::firstOrCreate([
             'title'=>'Аксессуары',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/acc.svg',
         ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест2',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест3',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест4',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
         $category = Category::firstOrCreate([
             'title'=>'Расходные материалы',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/rash.svg',
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест1',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
         ]);
         $category = Category::firstOrCreate([
             'title'=>'Телевизоры',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/telv.svg',
         ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест1',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
+        ]);
         $category = Category::firstOrCreate([
             'title'=>'Прочее',
             'image'=>'https://kupika.by/storage/2023-03/5dca32ae-749d-4663-aa09-e80c7dc77056/IEe4oVlwiImvapGoaFSMmxYMv2ojGO3YHMhdWXfR.webp',
             'logo'=>'img/all.png',
+        ]);
+        $sub_category = SubCategory::firstOrCreate([
+            'title'=>'Тест1',
+            'image'=>'https://sgfm.elcorteingles.es/SGFM/dctm/IMAGENES02/201204/20/00197915206250___P1_1000x1000.jpg',
+            'category_id' => $category->id,
         ]);
 
     }

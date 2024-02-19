@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->unsignedBigInteger('sub_category_id')->nullable();
             $table->float('price')->nullable();
+            $table->integer('position')->unsigned()->nullable();
             $table->timestamps();
         });
     }

@@ -3,15 +3,22 @@
 namespace App\Models;
 
 use App\Models\Product;
+use App\Models\SubCategoryFilter;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class SubCategory extends Model
 {
-    use HasFactory;
+
+    protected $guarded = false;
 
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function filters()
+    {
+        return $this->hasMany(SubCategoryFilter::class);
     }
 }

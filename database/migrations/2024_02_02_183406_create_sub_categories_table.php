@@ -18,6 +18,12 @@ return new class extends Migration
             $table->string('title');
             $table->string('image')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
+            $table->integer('position')->unsigned()->nullable();
+            $table->text('cmsSaveType')->nullable();
+            $table->integer('public')->nullable();
+            $table->date('publish_start_date')->nullable();
+            $table->date('publish_end_date')->nullable();
+            $table->text('languages')->nullable();
             $table->timestamps();
         });
     }

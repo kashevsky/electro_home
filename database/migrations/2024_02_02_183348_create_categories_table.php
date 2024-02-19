@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('image')->nullable();
             $table->string('logo')->nullable();
+            $table->integer('position')->unsigned()->nullable();
             $table->timestamps();
         });
     }
