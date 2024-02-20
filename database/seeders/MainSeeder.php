@@ -65,6 +65,12 @@ class MainSeeder extends Seeder
             'sub_category_id'=>$sub_category->id,
             'type'=>'checkbox',
         ]);
+        SubCategoryFilter::firstOrCreate([
+            'parametr'=>'Сортировка',
+            'name'=>'order',
+            'sub_category_id'=>$sub_category->id,
+            'type'=>'checkbox',
+        ]);
         $product = Product::firstOrCreate([
             'title'=>'Стирально-сушильная машина Jackys JW D8542B0BS',
             'image'=>'https://content2.onliner.by/catalog/device/header/a5bf6032d4b4d1fe8b8121407b511c33.jpg',

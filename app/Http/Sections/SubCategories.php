@@ -122,6 +122,12 @@ class SubCategories extends Section implements Initializable
                     ->setVisible(true)
                     ->setReadonly(false)
                 ,
+                AdminFormElement::html('<br><h2>Шаблон</h2><br>'),
+                AdminFormElement::hasMany('haracteristicsTemplate', [
+                    AdminFormElement::text('parametr','Параметр'),
+                    AdminFormElement::checkbox('show_in_description','показывать в описании'),
+                    AdminFormElement::checkbox('show_in_filter','Выводить в фильтр'),
+                ]),
             ], 'col-xs-12 col-sm-6 col-md-4 col-lg-4')->addColumn([
                 AdminFormElement::text('id', 'ID')->setReadonly(true),
             ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8'),

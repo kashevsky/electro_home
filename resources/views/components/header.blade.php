@@ -30,7 +30,20 @@
     }
 });
 </script>
-
+<script>
+    function initPlugs() {
+        return {
+            categories_count: <?= count($categories) ?>,
+            plugs_count: '',
+            init: function() {
+                this.plugs_count = 10 - this.categories_count;
+            },
+            showCount: function() {
+                alert(this.plugs_count);
+            }
+        }
+    }
+</script>
 <div class="header_container">
     <div id="nav_plug">
     </div>
@@ -41,6 +54,7 @@
             </div>
         </a>
         <div x-data="initSearch()" class="search_field">
+            <div class="input_outline">
             <input x-model="input" type="search" class="input_search" placeholder="Поиск...">
             <template x-if="searchResults.products && searchResults.products.length > 0">
                 <div class="results">
@@ -68,8 +82,6 @@
                     </template>
                 </div>
             </template>
-
-
         </div>
         <div class="phones_container">
             <div class="phones_logo">
@@ -146,6 +158,11 @@
                     </div>
                 </div>
             @endforeach
+            <div x-data="initPlugs()">
+                <template x-for="plug in plugs_count">
+                    <div class="nav_plug"></div>
+                </template>
+            </div>
         </div>
     </div>
 </div>

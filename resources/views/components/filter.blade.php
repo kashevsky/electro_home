@@ -3,6 +3,14 @@
         <div class="filter_title">
             Фильтр
         </div>
+        <div class="low_filter">
+            <select name="order" onclick="orderProducts()" id="select">
+                <option value="standart" selected="selected">Стандарт</option>
+                <option value="hight_price">Сначала дорогие</option>
+                <option value="low_price">Сначала дешевые</option>
+                <option value="r3">Популярность</option>
+            </select>
+        </div>
         <template x-for="filterItem in filterItems">
             <div class="l">
                 <template x-if="filterItem.is_ranged == 0">
@@ -42,12 +50,13 @@
                                         from: min,
                                         to: max
                                     });
-                                    
+
                                     this.from = min;
                                     this.to = max;
                                 }
                             }">
                         <div x-text="filterItem.parametr"></div>
+
                         <template x-if="filterItem.type == 'input'">
                             <div class="adjacent_inputs">
                                 <input :value="from" @change="from = $el.value; applyFilter({name: filterItem.name, from: from, to: to})" :data-is-ranged="filterItem.is_ranged" :type="filterItem.type" :name="`${filterItem.name}[from]`" placeholder="От">
