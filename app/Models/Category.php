@@ -13,27 +13,6 @@ class Category extends Model
 
     protected $guarded = false;
 
-    public $mediasParams = [
-        'cover' => [
-            'default' => [
-                [
-                    'name' => 'default',
-                    'ratio' => 16 / 9,
-                ],
-            ],
-            'mobile' => [
-                [
-                    'name' => 'mobile',
-                    'ratio' => 1,
-                ],
-            ],
-        ],
-    ];
-
-    public $slugAttributes = [
-        'title',
-    ];
-
     public function subCategories()
     {
         return $this->hasMany(SubCategory::class);

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Product;
 use App\Models\SubCategoryFilter;
+use App\Models\HaracteristicsTemplate;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -20,5 +21,10 @@ class SubCategory extends Model
     public function filters()
     {
         return $this->hasMany(SubCategoryFilter::class);
+    }
+
+    public function haracteristicsTemplate()
+    {
+        return $this->hasMany(HaracteristicsTemplate::class);
     }
 }

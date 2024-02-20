@@ -25,6 +25,16 @@ header {}
     background-image: url(../img/loop.svg);
     background-repeat: no-repeat;
     background-position: right 15px center;
+    width: 90%;
+}
+.search_field{
+    margin-right: 1vw;
+
+}
+.input_outline{
+    outline: 0.5px solid rgb(0, 89, 255);
+    padding: 10px 60px 10px 20px;
+    border-radius: 25px;
 }
 
 .cart,
@@ -260,6 +270,7 @@ textarea:-moz-placeholder {
     height: 22px;
     color: #4e4d4d;
     font-weight: 500;
+    font-variant-numeric: tabular-nums;
 }
 
 .phones_items span {
@@ -281,7 +292,9 @@ textarea:-moz-placeholder {
 }
 
 .nav_plug {
-    height: 400px;
+    background-color: #0085FF;
+    width: 9.9vw;
+    height: 100px;
 }
 
 .fixed {
