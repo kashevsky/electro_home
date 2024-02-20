@@ -80,6 +80,11 @@ class SubCategoryController extends Controller
 
         $haracteristics = $product->haracteristics;
 
-        return view('sub_category.index', compact('products', 'categories', 'sub_category', 'filer_items'));
+        $comparable_items = session()->get('product_ids');
+        if (is_array($comparable_items)) {
+            $comparable_items = array_values(array_unique($comparable_items));
+        }
+
+        return view('sub_category.index', compact('products', 'categories', 'sub_category', 'filer_items', 'comparable_items'));
     }
 }

@@ -5,6 +5,7 @@
             return {
                 products: <?= json_encode($products) ?>,
                 filterItems: <?= json_encode($filer_items) ?>,
+                comparableItems: <?= json_encode($comparable_items) ?>,
                 init: function() {
                     document.addEventListener('DOMContentLoaded', () => {
                         const url = new URL(location);
@@ -88,12 +89,12 @@
                 addToComparison: function(product) {
                     sendAjax('/add_to_comparison', {
                         productId: product.id
-                    });
+                    }).then(response => response.json()).then(data => this.comparableItems = data.items);
                 },
                 removeFromComparison: function(product) {
                     sendAjax('/remove_from_comparison', {
                         productId: product.id
-                    });
+                    }).then(response => response.json()).then(data => this.comparableItems = data.items);
                 }
             }
         }
@@ -127,7 +128,7 @@
                                 </div>
                                 <div class="product_checkboks">
                                     <div class="product_checkboks_line">
-                                        <input
+                                        <input :checked="comparableItems.includes(product.id)"
                                             @click="$el.checked ? addToComparison(product) : removeFromComparison(product)"
                                             type="checkbox" class="checkbox">
                                         <div>
@@ -191,5 +192,12 @@
                 <li>техника для уборки и ухода за одеждой: пылесосы, стиральные машины, утюги, отпариватели.</li>
             </ul>
         </div>
+
+        <template x-if="comparableItems && comparableItems.length">
+            <a :href="'/compare/' + comparableItems.join('+')" style="position: fixed; bottom: 0; right: 0">
+                <div style="position: absolute; bottom: 0; right: 30px; background-color: #0085ff; color: white; padding: 4px 12px"
+                    x-text="comparableItems.length"></div>
+            </a>
+        </template>
     </div>
 @endsection

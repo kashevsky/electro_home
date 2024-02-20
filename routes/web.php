@@ -28,4 +28,6 @@ Route::post('basket/add', '\App\Http\Controllers\BasketController@add')->name('b
 Route::post('add_to_comparison', [App\Http\Controllers\ComparisonController::class, 'addToComparison']);
 Route::post('remove_from_comparison', [App\Http\Controllers\ComparisonController::class, 'removeFromComparison']);
 
+Route::get('compare/{products}', [App\Http\Controllers\ComparisonController::class, 'compare']);
+
 Route::get('basket/test', '\App\Http\Controllers\BasketController@test')->name('basket.test');
