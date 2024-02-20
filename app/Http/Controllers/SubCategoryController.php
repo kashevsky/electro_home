@@ -25,6 +25,10 @@ class SubCategoryController extends Controller
             ->where('products.sub_category_id', $sub_category_id)
             ->select('products.*');
 
+        $order = $applied_filters['order'] ?? 'products.position:desc';
+
+        unset($applied_filters['order']);
+
         if (!empty($applied_filters)) {
             foreach ($applied_filters as $filter_name => $filter_values) {
                 $products->whereHas('haracteristics', function ($query) use ($filter_name, $filter_values) {
@@ -51,6 +55,11 @@ class SubCategoryController extends Controller
             }
 
             $products->groupBy('products.id');
+        }
+
+        if ($order) {
+            list($col, $direction) = explode(':', $order);
+            $products->orderBy($col, $direction);
         }
 
         $products = $products->get();

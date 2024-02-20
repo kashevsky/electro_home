@@ -5,6 +5,19 @@
             return {
                 products: <?= json_encode($products) ?>,
                 filterItems: <?= json_encode($filer_items) ?>,
+                init: function() {
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const url = new URL(location);
+                        const searchParams = url.searchParams;
+                        const orderBy = searchParams.get('order');
+                        const order = document.querySelector('select[name=order]');
+                        if (orderBy) {
+                            order.querySelector(`option[value="${orderBy}"]`).selected = 1;
+                        } else {
+                            order.querySelector(`option[value=""]`).selected = 1;
+                        }
+                    });
+                },
                 applyFilter: function(filter) {
                     var name = filter.name;
                     var value = filter.id;
@@ -12,13 +25,13 @@
                     const url = new URL(location);
                     const searchParams = url.searchParams;
 
-                    if (value == undefined && Object.hasOwn(filter, 'from') && Object.hasOwn(filter, 'to')) {
+                    if (Object.hasOwn(filter, 'from') && Object.hasOwn(filter, 'to')) {
                         if (filter.from) {
                             searchParams.set(`${name}[from]`, filter.from);
                         } else {
                             searchParams.delete(`${name}[from]`);
                         }
-                        
+
                         if (filter.to) {
                             searchParams.set(`${name}[to]`, filter.to);
                         } else {
@@ -28,6 +41,18 @@
                         this.updateSearchParams(searchParams, name, value);
                     }
 
+                    history.pushState({}, "", url);
+
+                    this.searchProducts();
+                },
+                applySort: function(sort) {
+                    const url = new URL(location);
+                    const searchParams = url.searchParams;
+                    if (sort.value) {
+                        searchParams.set(sort.name, sort.value);
+                    } else {
+                        searchParams.delete(sort.name);
+                    }
                     history.pushState({}, "", url);
 
                     this.searchProducts();
@@ -59,6 +84,16 @@
                     fetch(`/sub_categories/{{ $sub_category->id }}/searchProducts${location.search}`)
                         .then(response => response.json())
                         .then(data => this.products = data.products);
+                },
+                addToComparison: function(product) {
+                    sendAjax('/add_to_comparison', {
+                        productId: product.id
+                    });
+                },
+                removeFromComparison: function(product) {
+                    sendAjax('/remove_from_comparison', {
+                        productId: product.id
+                    });
                 }
             }
         }
@@ -92,7 +127,9 @@
                                 </div>
                                 <div class="product_checkboks">
                                     <div class="product_checkboks_line">
-                                        <input type="checkbox" class="checkbox">
+                                        <input
+                                            @click="$el.checked ? addToComparison(product) : removeFromComparison(product)"
+                                            type="checkbox" class="checkbox">
                                         <div>
                                             <label>В сравнение</label>
                                         </div>
@@ -125,16 +162,31 @@
                     </a>
                 </template>
             </div>
+            <div class="sorting">
+                <select @change="applySort($el)" name="order">
+                    <option value="price:asc">Сначала дешевые</option>
+                    <option value="price:desc">Сначала дорогие</option>
+                    <option value="created_at:desc">Сначала новые</option>
+                    <option value="">Сначала актуальные</option>
+                </select>
+            </div>
         </div>
         <div class="sub_product_long_text">
-            <p>Бытовая техника - это различные приборы, которые человек использует в быту. А быт - это все, что связано с жизнью человека и его основными потребностями ( пища, отдых, личная гигиена и так далее ).</p>
+            <p>Бытовая техника - это различные приборы, которые человек использует в быту. А быт - это все, что связано с
+                жизнью человека и его основными потребностями ( пища, отдых, личная гигиена и так далее ).</p>
             <br>
-            <p>Бытовая техника призвана облегчить человеку жизнь, освободить его от нудной, тяжелой, монотонной работы и домашних обязанностей и не только домашних. Бутовая техника используется и на работе, и в учебе. Полностью она человека не заменяет, но ежедневные обязанности по дому упрощает, а досуг делает интереснее и разнообразнее.</p>
+            <p>Бытовая техника призвана облегчить человеку жизнь, освободить его от нудной, тяжелой, монотонной работы и
+                домашних обязанностей и не только домашних. Бутовая техника используется и на работе, и в учебе. Полностью
+                она человека не заменяет, но ежедневные обязанности по дому упрощает, а досуг делает интереснее и
+                разнообразнее.</p>
             <br>
-            <p>Если открыть сайт любого интернет-магазина бытовой техники, то можно заметить, что всю бытовую технику условно можно разделить на группы:</p>
+            <p>Если открыть сайт любого интернет-магазина бытовой техники, то можно заметить, что всю бытовую технику
+                условно можно разделить на группы:</p>
             <br>
             <ul>
-                <li>кухонная техника ( крупная, мелкая, встраиваемая ): газовые и электроплиты, микроволновые печи, миксеры, блендеры, кухонные комбайны, овощерезки, блинницы, тостеры, мультиварки, холодильники, морозильники, электросушилки, посудомоечные машины и так далее;</li>
+                <li>кухонная техника ( крупная, мелкая, встраиваемая ): газовые и электроплиты, микроволновые печи, миксеры,
+                    блендеры, кухонные комбайны, овощерезки, блинницы, тостеры, мультиварки, холодильники, морозильники,
+                    электросушилки, посудомоечные машины и так далее;</li>
                 <li>теле-, видео- и аудио- техника: телевизоры, плееры, и пр.;</li>
                 <li>техника для уборки и ухода за одеждой: пылесосы, стиральные машины, утюги, отпариватели.</li>
             </ul>

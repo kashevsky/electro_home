@@ -42,7 +42,7 @@
         </a>
         <div x-data="initSearch()" class="search_field">
             <input x-model="input" type="search" class="input_search" placeholder="Поиск...">
-            <template x-if="searchResults.products.length > 0">
+            <template x-if="searchResults.products && searchResults.products.length > 0">
                 <div class="results">
                     <template x-if="searchResults.subCategories">
                         <div class="subCategories">

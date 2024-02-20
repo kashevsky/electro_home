@@ -53,6 +53,10 @@ class SearchController extends Controller
             ->where('products.sub_category_id', $sub_category_id)
             ->select('products.*');
 
+        $order = $input['order'] ?? 'products.position:desc';
+
+        unset($input['order']);
+
         if (!empty($input)) {
             foreach ($input as $filter_name => $filter_values) {
                 $products->whereHas('haracteristics', function ($query) use ($filter_name, $filter_values) {
@@ -79,6 +83,11 @@ class SearchController extends Controller
             }
 
             $products->groupBy('products.id');
+        }
+
+        if ($order) {
+            list($col, $direction) = explode(':', $order);
+            $products->orderBy($col, $direction);
         }
 
         return json_encode([

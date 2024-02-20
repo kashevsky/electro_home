@@ -33,12 +33,13 @@ class MainSeeder extends Seeder
         ]);
         SubCategoryFilter::firstOrCreate([
             'parametr'=>'Бренд',
-            'name'=>'brands',
+            'name'=>'brand',
             'sub_category_id'=>$sub_category->id,
             'type'=>'checkbox',
             'items'=> json_encode(['Lg','ATLANT','Haier','BEKO','Samsung','Bosch','Electrolux','Candy','Indesit','Weissgauff'])
         ]);
         SubCategoryFilter::firstOrCreate([
+            'name' => 'price',
             'parametr'=>'Стоимость',
             'sub_category_id'=>$sub_category->id,
             'type'=>'input',
@@ -51,12 +52,15 @@ class MainSeeder extends Seeder
             'items'=> json_encode(['стиральная машинка','cтиральная машинка с вертикальной загрузкой','стирально-сушильная машина','сушильная машина','сушильный шкаф'])
         ]);
         SubCategoryFilter::firstOrCreate([
+            'name' => 'loading_laundry',
             'parametr'=>'Загрузка белья',
             'sub_category_id'=>$sub_category->id,
+            'is_ranged' => 1,
             'type'=>'checkbox',
-            'items'=> json_encode(['2-4 кг (малая)', '5 кг (уменьшенная)', '6-8 кг (средняя)', '9 кг и более (большая)'])
+            'items'=> json_encode(['2 кг (малая)', '5 кг (уменьшенная)', '6 кг (средняя)', '9 кг (большая)'])
         ]);
         SubCategoryFilter::firstOrCreate([
+            'name' => 'maximum_spin_speed',
             'parametr'=>'Максимальная скорость отжима',
             'sub_category_id'=>$sub_category->id,
             'type'=>'checkbox',
