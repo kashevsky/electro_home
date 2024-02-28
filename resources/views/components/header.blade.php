@@ -16,19 +16,19 @@
 </script>
 <script>
     window.addEventListener('scroll', function() {
-    let offset = pageYOffset;
-    if(offset > 190){
-        document.getElementById('nav').classList.add("fixed");
-        document.getElementById('nav_plug').classList.add("nav_plug");
-        document.getElementById('content').classList.add("padding");
-    }
-    if(offset < 190){
-        document.getElementById('nav_plug').style.height="0px";
-        document.getElementById('nav').classList.remove("fixed");
-        document.getElementById('nav_plug').classList.remove("nav_plug");
-        document.getElementById('content').classList.remove("padding");
-    }
-});
+        let offset = pageYOffset;
+        if (offset > 190) {
+            document.getElementById('nav').classList.add("fixed");
+            document.getElementById('nav_plug').classList.add("nav_plug");
+            document.getElementById('content').classList.add("padding");
+        }
+        if (offset < 190) {
+            document.getElementById('nav_plug').style.height = "0px";
+            document.getElementById('nav').classList.remove("fixed");
+            document.getElementById('nav_plug').classList.remove("nav_plug");
+            document.getElementById('content').classList.remove("padding");
+        }
+    });
 </script>
 <script>
     function initPlugs() {
@@ -55,7 +55,8 @@
         </a>
         <div x-data="initSearch()" class="search_field">
             <div class="input_outline">
-            <input x-model="input" type="search" class="input_search" placeholder="Поиск...">
+                <input x-model="input" type="search" class="input_search" placeholder="Поиск...">
+            </div>
             <template x-if="searchResults.products && searchResults.products.length > 0">
                 <div class="results">
                     <template x-if="searchResults.subCategories">
@@ -73,8 +74,8 @@
                             <template x-for="product in searchResults.products">
                                 <a :href="'/products/' + product.id" class="product">
                                     <div class="serch_product">
-                                    <img :src="product.image">
-                                    <div x-text="product.title"></div>
+                                        <img :src="product.image">
+                                        <div x-text="product.title"></div>
                                     </div>
                                 </a>
                             </template>
@@ -95,7 +96,8 @@
                     +375(29) 112 54 21<span><img src="img/a1.jpg" style="width: 23px"></span>
                 </div>
                 <div class="phones_item">
-                    +375(25) 317 31 46<span><img src="img/life.png" style="width: 31px; position:relative; top: 2px"></span>
+                    +375(25) 317 31 46<span><img src="img/life.png"
+                            style="width: 31px; position:relative; top: 2px"></span>
                 </div>
             </div>
         </div>
