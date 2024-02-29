@@ -8,6 +8,9 @@
             background-color: #ffecc4 !important;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection
 
 @section('content')
@@ -32,49 +35,61 @@
         }
     @endphp
 
-    <div style="min-width: 900px; max-width: 1400px; margin: 0 auto;">
+    <script>
+        function initComparison() {
+            return {
+                hideEqual: false,
+                products: {!! json_encode($products) !!},
+                propsArrays: {!! json_encode($propsArrays) !!}
+            };
+        }
+    </script>
+
+    <div x-data="initComparison()" style="min-width: 900px; max-width: 1400px; margin: 0 auto;">
         <div class="fs-1 fw-semibold mt-3">Сравнение товаров</div>
         <table class="table table-hover table-bordered mt-3">
             <thead>
                 <tr>
                     <td class="pb-3 ps-3">
                         <div class="d-flex align-items-center column-gap-2">
-                            <input type="checkbox" name="hide-equal">
+                            <input x-model="hideEqual" type="checkbox" name="hide-equal">
                             <label>Скрыть одинаковые параметры</label>
                         </div>
                     </td>
-                    @foreach ($products as $product)
+                    <template x-for="product in products">
                         <td>
-                            <img src="{{ $product->image }}" width="60">
-                            <div>{{ $product->title }}</div>
-                            <div class="fw-semibold">{{ $product->price }} р.</div>
+                            <img :src="product.image" width="60">
+                            <div x-text="product.title"></div>
+                            <div x-text="product.price + ' р.'" class="fw-semibold"></div>
                         </td>
-                    @endforeach
+                    </template>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($propsArrays as $name => $propsArray)
-                    <tr>
-                        <td>{{ $name }}</td>
-                        @foreach ($propsArray as $prop)
-                            <td @class([
-                                'product-table__cell_accent' =>
-                                    min($propsArray) != max($propsArray) &&
-                                    intval($prop) &&
-                                    max($propsArray) == $prop,
-                            ])>
-                                @if ($prop)
-                                    {{ $prop }}
-                                @else
+                <template x-for="(propsArray, name) in propsArrays">
+                    <tr x-show="!hideEqual || (hideEqual && _.uniq(propsArray).length > 1)" x-data="{
+                        values: propsArray.map((v) => parseInt(v)).filter(Boolean),
+                        min: null,
+                        max: null,
+                        init: function() {
+                            this.min = Math.min(...this.values)
+                            this.max = Math.max(...this.values)
+                        }
+                    }">
+                        <td x-text="name"></td>
+                        <template x-for="prop in propsArray">
+                            <td :class="min != max && parseInt(prop) == max && 'product-table__cell_accent'">
+                                <div x-show="prop" x-text="prop"></div>
+                                <template x-if="!prop">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="2" stroke="currentColor" style="width: 20px; color: #b2b2b2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                     </svg>
-                                @endif
+                                </template>
                             </td>
-                        @endforeach
+                        </template>
                     </tr>
-                @endforeach
+                </template>
             </tbody>
         </table>
     </div>
