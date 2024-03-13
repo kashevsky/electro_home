@@ -16,7 +16,12 @@ class Product extends Model
         'title',
         'position',
         'image',
-        'price'
+        'price',
+        'code',
+        'article',
+        'brand',
+        'garanty',
+        'is_exists'
     ];
     public function subCategory()
     {
