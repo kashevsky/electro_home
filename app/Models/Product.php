@@ -3,8 +3,7 @@
 namespace App\Models;
 
 use App\Models\Slide;
-use App\Models\SubCategory;
-use App\Models\Haracteristic;
+use App\Models\Characteristic;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -21,16 +20,13 @@ class Product extends Model
         'article',
         'brand',
         'garanty',
-        'is_exists'
+        'is_exists',
+        'category_id'
     ];
-    public function subCategory()
-    {
-        return $this->belongsTo(SubCategory::class);
-    }
 
     public function haracteristics()
     {
-        return $this->hasMany(Haracteristic::class);
+        return $this->hasMany(Characteristic::class);
     }
 
     public function slides()

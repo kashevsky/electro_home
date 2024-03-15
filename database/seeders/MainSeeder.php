@@ -6,7 +6,7 @@ use App\Models\Slide;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\SubCategory;
-use App\Models\Haracteristic;
+use App\Models\Characteristic;
 use Illuminate\Database\Seeder;
 use App\Models\SubCategoryFilter;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -79,57 +79,57 @@ class MainSeeder extends Seeder
             'price'=> 1529,
             'is_sale'=>1
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Бренд',
             'value'=>'Jackys',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Стоимость',
             'value'=>'1529,00',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Тип',
             'value'=>'Стирально-сушильная машина',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Загрузка белья',
             'value'=>'8',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Максимальная скорость отжима',
             'value'=>'1400',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Метод сушки',
             'value'=>'естественная конденсация',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Цвет люка ',
             'value'=>'хром, серебристый',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Класс стирки',
             'value'=>'A',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Класс отжима ',
             'value'=>'B',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Класс сушки ',
             'value'=>'A',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Объём барабана',
             'value'=>'54 л',
             'product_id'=>$product->id
@@ -160,27 +160,27 @@ class MainSeeder extends Seeder
             'price'=> 1350,
             'is_sale'=> 1
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Бренд',
             'value'=>'LG',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Стоимость',
             'value'=>'1350',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Тип',
             'value'=>'Стиральная машинка',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Загрузка белья',
             'value'=>'6',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Максимальная скорость отжима',
             'value'=>'1200',
             'product_id'=>$product->id
@@ -193,27 +193,27 @@ class MainSeeder extends Seeder
             'price'=> 1820,
             'is_sale'=>1
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Бренд',
             'value'=>'ATLANT',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Стоимость',
             'value'=>'1529,00',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Тип',
             'value'=>'Стирально-сушильная машина',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Загрузка белья',
             'value'=>'8',
             'product_id'=>$product->id
         ]);
-        Haracteristic::firstOrCreate([
+        Characteristic::firstOrCreate([
             'parametr'=>'Максимальная скорость отжима',
             'value'=>'1400',
             'product_id'=>$product->id

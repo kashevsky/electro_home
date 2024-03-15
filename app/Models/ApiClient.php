@@ -28,6 +28,43 @@ class ApiClient
         return $this->sendRequest($endpoint);
     }
 
+    public function getProductCategories($options = null)
+    {
+        return $this->sendRequest('ProductCategory' . $options);
+    }
+
+    /**
+     * Получите группы характеристик.
+     * 
+     * @return array|null
+     */
+    public function getParamGroups()
+    {
+        return $this->sendRequest('ParamGroups');
+    }
+
+    /**
+     * Получите группу характеристики.
+     * 
+     * @return array|null
+     */
+    public function getParamGroup($paramItemId)
+    {
+        $endpoint = "ParamGroups({$paramItemId})";
+        return $this->sendRequest($endpoint);
+    }
+
+    /**
+     * Получите характеристики.
+     * 
+     * @return array|null
+     */
+    public function getParamItems($options = null)
+    {
+        $endpoint = "ParamItems?{$options}";
+        return $this->sendRequest($endpoint);
+    }
+
     public function getProductTypes($options = null)
     {
         return $this->sendRequest('ProductType');
@@ -40,7 +77,7 @@ class ApiClient
     }
 
     /**
-     * Метод по получению названия и значения характеристики.
+     * Получите названия и значения характеристики.
      * 
      * @param int $valId
      * 
@@ -53,7 +90,7 @@ class ApiClient
     }
 
     /**
-     * Метод по получению характеристик товара.
+     * Получите характеристики товара.
      * 
      * @param int $productId
      * 
@@ -75,6 +112,6 @@ class ApiClient
         curl_setopt($ch, CURLOPT_USERPWD, "{$this->login}:{$this->password}");
         $result = json_decode(curl_exec($ch), 1);
 
-        return !empty($result['value']) ? $result['value'] : $result;
+        return isset($result['value']) ? $result['value'] : $result;
     }
 }

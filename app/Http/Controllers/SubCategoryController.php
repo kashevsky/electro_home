@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\SubCategory;
 use App\Models\SubCategoryFilter;
 use Illuminate\Support\Arr;
 
@@ -18,7 +17,6 @@ class SubCategoryController extends Controller
             $applied_filters = [];
         }
 
-        $sub_category = SubCategory::find($sub_category_id);
         $categories = Category::get();
 
         $products = Product::join('sub_categories', 'products.sub_category_id', 'sub_categories.id')

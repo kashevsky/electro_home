@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Haracteristic extends Model
+class CharacteristicGroup extends Model
 {
     use HasFactory;
 
+    protected $table = 'characteristics_groups';
+
     protected $fillable = [
-        'product_id',
-        'parametr',
-        'value'
+        'title',
+        'code',
+        'is_active'
     ];
 }

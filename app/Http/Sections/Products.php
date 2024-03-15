@@ -7,7 +7,6 @@ use AdminColumnFilter;
 use AdminDisplay;
 use AdminForm;
 use AdminFormElement;
-use App\Models\SubCategory;
 use Illuminate\Database\Eloquent\Model;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
@@ -127,7 +126,6 @@ class Products extends Section implements Initializable
             ], 'col-xs-12 col-sm-6 col-md-8 col-lg-8')->addColumn([
                 AdminFormElement::text('price', 'Стоимость'),
                 AdminFormElement::checkbox('is_sale','На акции'),
-                AdminFormElement::select('sub_category_id','Подкатегория', SubCategory::class)
                 // AdminFormElement::belongsTo('subCategory',[
                 //     AdminFormElement::select('product_id','Подкатегория', SubCategory::class)
                 // ])

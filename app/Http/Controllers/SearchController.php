@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
-use App\Models\SubCategory;
 use App\Models\SubCategoryFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -25,8 +25,8 @@ class SearchController extends Controller
 
             $subCategories = $products->pluck('sub_category_id');
 
-            $subCategories = SubCategory::join('products', 'sub_categories.id', 'products.sub_category_id')
-                ->whereIn('sub_categories.id', $subCategories)
+            $subCategories = Category::join('products', 'categories.id', 'products.category_id')
+                ->whereIn('categories.id', $subCategories)
                 ->select(DB::raw('count(*) as total'), 'sub_categories.id', 'sub_categories.title')
                 ->groupBy('sub_categories.id')
                 ->orderBy('total', 'desc')

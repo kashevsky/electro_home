@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Haracteristic;
-use App\Models\SubCategory;
-use App\Models\SubCategoryFilter;
+use App\Models\Characteristic;
 use Illuminate\Http\Request;
 
 class FilterController extends Controller
