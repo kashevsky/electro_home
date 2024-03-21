@@ -18,4 +18,9 @@ class Characteristic extends Model
         'in_filter',
         'is_expanded'
     ];
+
+    public static function getByTitle($title)
+    {
+        return self::where('title', $title)->first();
+    }
 }

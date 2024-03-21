@@ -6,6 +6,8 @@ use App\Models\ApiClient;
 use App\Models\Category;
 use App\Models\Characteristic;
 use App\Models\Product;
+use App\Models\ProductCharacteristic;
+use App\Models\Slide;
 use Illuminate\Console\Command;
 
 class ImportProducts extends Command
@@ -68,6 +70,7 @@ class ImportProducts extends Command
                         'garanty' => $product['Garanty']
                     ];
 
+
                     $category = $apiClient->getProductCategory($product['Categories'][0]['CatId']);
 
                     $category = Category::where('title', $category['Caption'])->first();
@@ -78,7 +81,22 @@ class ImportProducts extends Command
 
                     $productValues = $apiClient->getProductValues($product['Id']);
 
+                    $photoList = $product['PhotoList'];
+
                     $product = Product::updateOrCreate($keyParams, $params);
+
+                    if (!empty($photoList)) {
+                        $photos = explode('|', $photoList);
+
+                        foreach ($photos as $photo) {
+                            $photo = env('IMAGES_FOLDER_URL') . $photo;
+
+                            Slide::firstOrCreate([
+                                'product_id' => $product->id,
+                                'src' => $photo
+                            ]);
+                        }
+                    }
 
                     if (!empty($productValues)) {
 
@@ -90,17 +108,23 @@ class ImportProducts extends Command
 
                                 $itemObj = $paramItemValue['item_id_obj'];
 
-                                Characteristic::firstOrCreate([
-                                    'product_id' => $product->id,
-                                    'parametr' => $itemObj['title_v1'],
-                                    'value' => $paramItemValue['val_string']
-                                ]);
+                                $characteristic = Characteristic::getByTitle($itemObj['title_v1']);
+
+                                if (is_object($characteristic)) {
+                                    ProductCharacteristic::firstOrCreate([
+                                        'product_id' => $product->id,
+                                        'characteristic_id' => $characteristic->id,
+                                        'value' => $paramItemValue['val_string']
+                                    ]);
+                                }
                             }
                         }
                     }
                 }
 
                 $skip += 20;
+
+                $this->info("Загружено {$skip} продуктов");
             }
         }
     }

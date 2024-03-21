@@ -106,12 +106,24 @@ class ApiClient
     public function sendRequest($endpoint = null)
     {
         $url = $this->url . $endpoint;
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($ch, CURLOPT_USERPWD, "{$this->login}:{$this->password}");
+
+        $ch = $this->initCurl($url);
+
         $result = json_decode(curl_exec($ch), 1);
 
         return isset($result['value']) ? $result['value'] : $result;
+    }
+
+    public function initCurl($url)
+    {
+        $ch = curl_init($url);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+
+        curl_setopt($ch, CURLOPT_USERPWD, "{$this->login}:{$this->password}");
+
+        return $ch;
     }
 }

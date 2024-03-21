@@ -144,7 +144,7 @@
                             </div>
                         </a>
                         <div x-show="open" @mouseleave="open = false" class="menu_sub_categories">
-                            @foreach ($category->subCategories as $sub_category)
+                            @foreach ($category->children as $sub_category)
                                 <a href="{{ route('sub_category.index', $sub_category->id) }}">
                                     <div class="menu_sub_category">
                                         <div>

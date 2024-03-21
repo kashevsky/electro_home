@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Characteristic;
+use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,9 +15,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('characteristic_values', function (Blueprint $table) {
+        Schema::create('products_characteristics', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignIdFor(Product::class);
+            $table->foreignIdFor(Characteristic::class);
+            $table->string('value')->nullable();
         });
     }
 
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('characteristic_values');
+        Schema::dropIfExists('products_characteristics');
     }
 };
