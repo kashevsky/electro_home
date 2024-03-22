@@ -133,7 +133,7 @@
                             <div class="top_navigation_row_item">
                                 <div class="e">
                                     @if (!str_contains($category->logo, 'png'))
-                                        <object type="image/svg+xml" data="{{ $category->logo }}">svg-animation</object>
+                                        {{-- <object type="image/svg+xml" data="{{ $category->logo }}">svg-animation</object> --}}
                                     @else
                                         <img src="{{ $category->logo }}">
                                     @endif

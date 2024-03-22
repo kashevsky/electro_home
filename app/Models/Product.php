@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Slide;
-use App\Models\Characteristic;
+use App\Models\ProductCharacteristic;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -24,9 +24,9 @@ class Product extends Model
         'category_id'
     ];
 
-    public function haracteristics()
+    public function characteristics()
     {
-        return $this->hasMany(Characteristic::class);
+        return $this->hasMany(ProductCharacteristic::class);
     }
 
     public function slides()

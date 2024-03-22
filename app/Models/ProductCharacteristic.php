@@ -16,4 +16,9 @@ class ProductCharacteristic extends Model
         'characteristic_id',
         'value'
     ];
+
+    public function characteristic()
+    {
+        return $this->belongsTo(Characteristic::class);
+    }
 }

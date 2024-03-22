@@ -19,6 +19,11 @@ class Characteristic extends Model
         'is_expanded'
     ];
 
+    public function group()
+    {
+        $this->belongsTo(CharacteristicGroup::class);
+    }
+
     public static function getByTitle($title)
     {
         return self::where('title', $title)->first();
