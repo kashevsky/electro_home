@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Characteristic;
+use App\Models\CharacteristicGroup;
 use App\Models\Product;
-use App\Models\SubCategoryFilter;
 use Illuminate\Support\Arr;
 
 class SubCategoryController extends Controller
 {
-    public function index($sub_category_id)
+    public function index($category_id)
     {
         if (!empty($_GET)) {
             $applied_filters = $_GET;
@@ -19,70 +20,53 @@ class SubCategoryController extends Controller
 
         $categories = Category::get();
 
-        $products = Product::join('sub_categories', 'products.sub_category_id', 'sub_categories.id')
-            ->where('products.sub_category_id', $sub_category_id)
-            ->select('products.*');
+        $category = Category::find($category_id);
 
+        $products = Product::select('products.*')
+            ->with('characteristics', function ($query) {
+                $query
+                    ->join('characteristics', 'products_characteristics.characteristic_id', 'characteristics.id')
+                    ->join('characteristics_groups', 'characteristics.group_id', 'characteristics_groups.id');
+            })
+            ->join('categories', 'products.category_id', 'categories.id')
+            ->where('products.category_id', $category_id)
+            ->groupBy('products.id');
+
+        $products = $products->get()->map(function ($product) {
+            $characteristics_groups = $product->characteristics->groupBy('group_id')->toArray();
+            $result = [];
+            foreach ($characteristics_groups as $characteristics_group => $values) {
+                $result[CharacteristicGroup::find($characteristics_group)->title] = collect($values)->map(function ($item) {
+                    $item['title'] = Characteristic::find($item['characteristic_id'])->title;
+                    return $item;
+                });
+            }
+
+            $product->characteristics = $result;
+
+            return $product;
+        });
+        dd($products->first());
         $order = $applied_filters['order'] ?? 'products.position:desc';
 
         unset($applied_filters['order']);
 
-        if (!empty($applied_filters)) {
-            foreach ($applied_filters as $filter_name => $filter_values) {
-                $products->whereHas('haracteristics', function ($query) use ($filter_name, $filter_values) {
-                    $parametr = SubCategoryFilter::where('name', $filter_name)->first()->parametr;
-                    $query->where('parametr', $parametr)
-                        ->where(function ($query) use ($filter_values) {
-                            if (Arr::has($filter_values, 'from') || Arr::has($filter_values, 'to')) {
-                                $query->orWhere(function ($query) use ($filter_values) {
-                                    if (Arr::has($filter_values, 'from')) {
-                                        $query->where('value', '>=', Arr::get($filter_values, 'from'));
-                                    }
-
-                                    if (Arr::has($filter_values, 'to')) {
-                                        $query->where('value', '<=', Arr::get($filter_values, 'to'));
-                                    }
-                                });
-                            } else {
-                                foreach ($filter_values as $filter_value) {
-                                    $query->orWhere('value', $filter_value);
-                                }
-                            }
-                        });
-                });
-            }
-
-            $products->groupBy('products.id');
-        }
-
         if ($order) {
             list($col, $direction) = explode(':', $order);
-            $products->orderBy($col, $direction);
+            // $products->orderBy($col, $direction);
         }
 
-        $products = $products->get();
+        // $products = $products->get();
 
         $product = $products->first();
 
-        $filer_items = SubCategoryFilter::where('sub_category_id', $sub_category->id)->get()
-            ->map(function ($item) {
-                return $item = [
-                    'parametr' => $item->parametr,
-                    'type' => $item->type,
-                    'name' => $item->name,
-                    'is_ranged' => $item->is_ranged,
-                    'products' => $item->subCategory->products,
-                    'items' => json_decode($item->items)
-                ];
-            });
-
-        $haracteristics = $product->haracteristics;
+        $filer_items = [];
 
         $comparable_items = session()->get('product_ids');
         if (is_array($comparable_items)) {
             $comparable_items = array_values(array_unique($comparable_items));
         }
 
-        return view('sub_category.index', compact('products', 'categories', 'sub_category', 'filer_items', 'comparable_items'));
+        return view('sub_category.index', compact('products', 'categories', 'filer_items', 'category', 'comparable_items'));
     }
 }
